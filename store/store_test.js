@@ -1,5 +1,3 @@
-const auth = require("../pages/auth");
-
 let user = {
     firstName: 'Anna',
     lastName: 'Gotovkina',
@@ -8,7 +6,7 @@ let user = {
     city: 'New York',
     state: 'New York',
     postalCode: 10005,
-    mobilePhone: +1122334455,
+    mobilePhone: '+1122334455',
     addressAlias: 'jsAutomation@test.com',
 };
 
@@ -20,6 +18,7 @@ Scenario('test something', ({ I, homePage, authPage, createAccountPage, myAccoun
     authPage.fillEmail(Date.now() + '@test.com');
     authPage.clickCreateAccount();
     createAccountPage.fillNewAccountFields(user);
+    createAccountPage.submitNewUserFields(); 
     myAccountPage.verifyPage();
 
 });

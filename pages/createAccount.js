@@ -26,6 +26,9 @@ module.exports = {
     I.fillField(this.postalCodeInput, user.postalCode);
     I.fillField(this.mobilePhoneInput, user.mobilePhone);
     I.fillField(this.addressAliasInput, user.addressAlias);
+  },
+
+  submitNewUserFields() {
     I.click(this.registerButton);
   }
 }
