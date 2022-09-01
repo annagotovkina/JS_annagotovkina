@@ -1,7 +1,6 @@
 const { I } = inject();
 
 module.exports = {
-  //productPrice: { css: '#our_price_display' },
   productPrice: { css: '#total_product' },
   productShipping: { css: '#total_shipping' },
   productTotalPrice: { css: '#total_price' },
@@ -12,7 +11,7 @@ module.exports = {
   proceedToCheckoutButton4: { xpath: '//button[@name="processCarrier"]'},
   payByBankWireButton: { xpath: '//a[@class="bankwire"]'},
   confirmButton: { xpath: '//*[@id="cart_navigation"]/button'},
-  //orderReference: { xpath: '//div[@class="box"]'},
+  orderReference: { xpath: '//div[@class="box"]'},
 
   clickAddToCart() {
     I.click(this.addToCartButton);
@@ -80,8 +79,8 @@ completePurchase(){
   this.verifyPage();
 },
 
-  /*async getOrderReference() {
-  return await I.grabTextfromAll(this.orderReference);
-},*/
+async getOrderReference() {
+  return await I.grabTextFromAll(this.orderReference);
+},
 
 }
