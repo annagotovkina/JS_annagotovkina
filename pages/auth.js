@@ -38,6 +38,4 @@ module.exports = {
     this.fillRegisteredPassword(password);
     this.clickSignIn();
   },
-
-  // insert your locators and methods here
 }

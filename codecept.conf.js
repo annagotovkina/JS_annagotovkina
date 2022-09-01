@@ -21,8 +21,15 @@ exports.config = {
     },
     "ChaiWrapper": {
       require: "codeceptjs-chai"
-    }
+    },
+    PriceConverter: {
+      require: './helpers/priceConverter.js',
+    },
+    EmailGenerater: {
+      require: './helpers/emailGenerater.js',
+    },
   },
+  
   include: {
     I: './steps_file.js',
     homePage: './pages/home.js',
@@ -31,7 +38,7 @@ exports.config = {
     myAccountPage: './pages/myAccount.js',
     registerPage: './pages/register.js',
     productPage: './pages/product.js',
-
+    tryToHelper: './helpers/tryTo.js'
   },
   bootstrap: null,
   mocha: {},
