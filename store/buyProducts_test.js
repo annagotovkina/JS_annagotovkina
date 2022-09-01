@@ -4,16 +4,16 @@ products.add(['http://automationpractice.com/index.php?id_product=4&controller=p
 products.add(['http://automationpractice.com/index.php?id_product=7&controller=product']);
 products.add(['http://automationpractice.com/index.php?controller=contact']);
 
-const FileReader = require('C:/Users/Anna/Desktop/JS Atomation Courses/JS_annagotovkina/helpers/fileReader.js');
-let productLinks = FileReader.readContectFromFile('C:/Users/Anna/Desktop/JS Atomation Courses/JS_annagotovkina/input/productLinks.txt');
+//const FileReader = require('C:/Users/Anna/Desktop/JS Atomation Courses/JS_annagotovkina/helpers/fileReader.js');
+//let productLinks = FileReader.readContectFromFile('C:/Users/Anna/Desktop/JS Atomation Courses/JS_annagotovkina/input/productLinks.txt');
+const FileReader = require('./../helpers/fileReader.js');
+let productLinks = FileReader.readContectFromFile('./input/productLinks.txt');
 let productLinksArray = productLinks.split('\r\n');
-console.log(productLinksArray);
 let arrayOfObjects = FileReader.getArrayOfProductLinkObjects(productLinksArray);
-console.log(arrayOfObjects);
 
 Feature('buy product');
 
-Before(({ I, homePage, authPage, myAccountPage }) => { // or Background
+Before(({ I, homePage, authPage, myAccountPage }) => {
     I.openStore();
     homePage.clickSignIn();
     authPage.login('A12345@test.com', 12345);
@@ -28,6 +28,8 @@ Data(products).Scenario('buy products', async ({I, productPage, current, tryToHe
         productPage.clickAddToCart();
     } else {
         console.error('Add to cart is not available');
+        I.amOnPage('http://automationpractice.com/index.php?id_product=1&controller=product');
+        productPage.clickAddToCart();
     };
     productPage.clickProceedToCheckout();
     let productPrice = await I.getNumericPrice(await productPage.getProductPrice());
@@ -39,11 +41,10 @@ Data(products).Scenario('buy products', async ({I, productPage, current, tryToHe
     I.assertEqual(productTotalPrice, (productPrice + productShipping), 'Prices do not match');
     productPage.completePurchase();
 
-    /*let str = await productPage.getOrderReference();
-    console.log(str.substr(47, 9));*/
-    
-})
+    let array = await productPage.getOrderReference();
+    console.log(array[0]); 
+});
 
 Data(arrayOfObjects).Scenario('buy product', async ({ I, current }) => {
     console.log(current.productLink);
-})
+});
