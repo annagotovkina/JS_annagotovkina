@@ -1,8 +1,8 @@
 let products = new DataTable(['productLink']);
 products.add(['http://automationpractice.com/index.php?id_product=1&controller=product']);
-products.add(['http://automationpractice.com/index.php?id_product=4&controller=product']);
-products.add(['http://automationpractice.com/index.php?id_product=7&controller=product']);
-products.add(['http://automationpractice.com/index.php?controller=contact']);
+products.xadd(['http://automationpractice.com/index.php?id_product=4&controller=product']);
+products.xadd(['http://automationpractice.com/index.php?id_product=7&controller=product']);
+products.xadd(['http://automationpractice.com/index.php?controller=contact']);
 
 //const FileReader = require('C:/Users/Anna/Desktop/JS Atomation Courses/JS_annagotovkina/helpers/fileReader.js');
 //let productLinks = FileReader.readContectFromFile('C:/Users/Anna/Desktop/JS Atomation Courses/JS_annagotovkina/input/productLinks.txt');
@@ -39,12 +39,11 @@ Data(products).Scenario('buy products', async ({I, productPage, current, tryToHe
     let productTotalPrice = await I.getNumericPrice(await productPage.getProductTotalPrice());
     console.log(productTotalPrice);
     I.assertEqual(productTotalPrice, (productPrice + productShipping), 'Prices do not match');
-    
     let response = await I.sendGetRequest('https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?valcode=USD&json');
     let dataRate = response.data[0].rate;
-    console.log(dataRate);
+    console.log(`Dollar exchange rate on the date: ${dataRate}`);
     let totalPriceUah = productTotalPrice * dataRate;
-    console.log(totalPriceUah);
+    console.log(`Price in UAH: ${totalPriceUah}`);
     productPage.completePurchase();
     let array = await productPage.getOrderReference();
     let string = array[0];

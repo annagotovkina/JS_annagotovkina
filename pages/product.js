@@ -9,7 +9,6 @@ module.exports = {
   proceedToCheckoutButton3: { xpath: '//button[@name="processAddress"]'},
   selectCheker: { css: '#cgv'},
   proceedToCheckoutButton4: { xpath: '//button[@name="processCarrier"]'},
-  //totalPrice: { css: '#total_price' },
   payByBankWireButton: { xpath: '//a[@class="bankwire"]'},
   confirmButton: { xpath: '//*[@id="cart_navigation"]/button'},
   orderReference: { xpath: '//div[@class="box"]'},
