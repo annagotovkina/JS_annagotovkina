@@ -39,10 +39,17 @@ Data(products).Scenario('buy products', async ({I, productPage, current, tryToHe
     let productTotalPrice = await I.getNumericPrice(await productPage.getProductTotalPrice());
     console.log(productTotalPrice);
     I.assertEqual(productTotalPrice, (productPrice + productShipping), 'Prices do not match');
+    
+    let response = await I.sendGetRequest('https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?valcode=USD&json');
+    let dataRate = response.data[0].rate;
+    console.log(dataRate);
+    let totalPriceUah = productTotalPrice * dataRate;
+    console.log(totalPriceUah);
     productPage.completePurchase();
-
     let array = await productPage.getOrderReference();
-    console.log(array[0]); 
+    let string = array[0];
+    let referenceCode = string.slice(217, 226);
+    console.log(referenceCode);
 });
 
 Data(arrayOfObjects).Scenario('buy product', async ({ I, current }) => {
